@@ -1168,6 +1168,13 @@ public class TelephonyManager {
             return null;
         }
     }
+    
+    /**
+    * @hide
+    */
+    public CellLocation getCellLocationBySubId(int subId) {
+        return getCellLocation();
+    }
 
     /**
      * Enables location update notifications.  {@link PhoneStateListener#onCellLocationChanged
@@ -1547,6 +1554,22 @@ public class TelephonyManager {
      * @hide
      */
     public String getNetworkOperator(int subId) {
+        int phoneId = SubscriptionManager.getPhoneId(subId);
+        return getNetworkOperatorForPhone(phoneId);
+     }
+     
+    /**
+     * Returns the numeric name (MCC+MNC) of current registered operator
+     * for a particular subscription.
+     * <p>
+     * Availability: Only when user is registered to a network. Result may be
+     * unreliable on CDMA networks (use {@link #getPhoneType()} to determine if
+     * on a CDMA network).
+     *
+     * @param subId
+     */
+    /** {@hide} */
+    public String getNetworkOperatorForSubscription(int subId) {
         int phoneId = SubscriptionManager.getPhoneId(subId);
         return getNetworkOperatorForPhone(phoneId);
      }
